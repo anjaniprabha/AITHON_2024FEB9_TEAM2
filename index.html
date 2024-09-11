@@ -3,146 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Team</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f1f1f1;
-        }
-
-        header {
-            background-color: #333;
-            color: #f5ebf5;
-            text-align: center;
-            padding: 1em;
-        }
-
-        section {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #eef2f3;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-
-        .team-member {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 20px;
-            background-color: #ffffff;
-            border-radius: 8px;
-        }
-
-        .team-member img {
-            max-width: 20%;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-
-        .team-member-info {
-            flex: 1;
-        }
-
-        .team-member h2 {
-            color: #333;
-        }
-
-        .team-member p {
-            color: #555;
-        }
-
-        .github-link {
-            color: #0366d6; /* GitHub link color */
-            text-decoration: none;
-        }
-
-        .github-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Language Learning Assistant</title>
 </head>
 <body>
+    <div class="container">
+        <h1>Welcome to the Language Learning Assistant!</h1>
+        <form action="{{ url_for('process_word') }}" method="post">
+            <label for="word">Enter a word to learn:</label>
+            <input type="text" id="word" name="word" required>
+            <button type="submit">Submit</button>
+        </form>
 
-    <header>
-        <h1>Our Amazing Team</h1>
-    </header>
-    <marquee direction="up" behavior="scroll" scrollamount="30">
+        {% if word %}
+            <h2>Word: {{ word }}</h2>
+            {% if definition %}
+                <p>Definition: {{ definition }}</p>
+            {% else %}
+                <p>Word not found in the dictionary.</p>
+            {% endif %}
 
+            {% if examples %}
+                <h3>Examples:</h3>
+                <ul>
+                    {% for ex in examples %}
+                        <li>{{ ex }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
 
-     <section>
-        <div class="team-member">
-            <img src="AP.jpg" alt="Anjani Prabha">
-            <div class="team-member-info">
-                <h2>Anjani Prabha</h2>
-                <p>21JN1A4207</p>
-                <p>Front-end Developer</p>
-                <p><a class="github-link" href="https://github.com/anjaniprabha" target="_blank">GitHub</a></p>
-            </div>
-        </div>
-        <div class="team-member">
-            <img src="DP.jpg" alt="Devi Parvathi">
-            <div class="team-member-info">
-                <h2>Devi Parvathi</h2>
-                <p>21JN1A4211</p>
-                <p>Front-end Developer</p>
-                <p><a class="github-link" href="https://github.com/DEVIPARVATHIMANYAM" target="_blank">GitHub</a></p>
-            </div>
-        </div>
-
-        <div class="team-member">
-            <img src="MN.jpg" alt="Nandini">
-            <div class="team-member-info">
-                <h2>Nandini</h2>
-                <p>21JN1A4221</p>
-                <p>Back-end Developer</p>
-                <p><a class="github-link" href="https://github.com/Nandinimutika" target="_blank">GitHub</a></p>
-            </div>
-        </div>
-
-        <div class="team-member">
-            <img src="BV.jpg" alt="Bhargavi">
-            <div class="team-member-info">
-                <h2>Bhargavi</h2>
-                <p>22JN5A4201</p>
-                <p>Back-end Developer</p>
-                <p><a class="github-link" href="https://github.com/Vissarapubhargavi12" target="_blank">GitHub</a></p>
-            </div>
-        </div>
-
-        <div class="team-member">
-            <img src="MD.jpg" alt="Mounika">
-            <div class="team-member-info">
-                <h2>Mounika</h2>
-                <p>21JN1A4208</p>
-                <p>Back-end Developer</p>
-                <p><a class="github-link" href="https://github.com/DOKALAMOUNIKADEVI" target="_blank">GitHub</a></p>
-            </div>
-        </div>
-
-        <div class="team-member">
-            <img src="JK.jpg" alt="Jaya Sri">
-            <div class="team-member-info">
-                <h2>Jaya Sri</h2>
-                <p>21JN1A4210</p>
-                <p>Flask Developer</p>
-                <p><a class="github-link" href="https://github.com/KAPAJAYASRI" target="_blank">GitHub</a></p>
-            </div>
-        </div>
-
-        <div class="team-member">
-            <img src="RP.jpg" alt="Ramya">
-            <div class="team-member-info">
-                <h2>Ramya</h2>
-                <p>21JN1A4219</p>
-                <p>Flask Developer</p>
-                <p><a class="github-link" href="https://github.com/RamyaPinapatruni" target="_blank">GitHub</a></p>
-            </div>
-        </div>
-     </section>
-    </marquee>
+            {% if synonyms %}
+                <p>Synonyms: {{ synonyms|join(', ') }}</p>
+            {% endif %}
+        {% endif %}
+    </div>
 </body>
 </html>
